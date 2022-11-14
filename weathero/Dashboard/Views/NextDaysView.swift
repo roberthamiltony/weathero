@@ -158,7 +158,7 @@ class TemperatureRangeView: UIView {
     
     override func layoutSubviews() {
         super.layoutSubviews()
-        rangeBubble.layer.cornerRadius = rangeBubble.frame.height / 2
+        rangeBubble.layer.cornerRadius = min(rangeBubble.frame.height, rangeBubble.frame.width) / 2
     }
     
     func bind(range: ClosedRange<Float>, min: Float, max: Float) {

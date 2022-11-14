@@ -15,6 +15,6 @@ enum WeatherClassifications {
     /// A realistic range for weather in the UK. If precipiration is above this, some other dialog should be shown to highlight this.
     static let rainChartScale: ClosedRange<Float> = (0...7.5)
     
-    static let cold = -10.0
-    static let hot = 35.0
+    static let cold: Float = -10.0
+    static let hot: Float = 35.0
 }

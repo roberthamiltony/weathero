@@ -1,0 +1,436 @@
+{
+    "metadata" : {
+      "attributionURL" : "https:\/\/weatherkit.apple.com\/legal-attribution.html",
+      "longitude" : -0.099000000000000005,
+      "providerName" : "UK Met Office",
+      "expireTime" : "2022-11-14T16:37:21Z",
+      "language" : "en-US",
+      "latitude" : 51.493000000000002,
+      "units" : "m",
+      "readTime" : "2022-11-14T15:37:21Z",
+      "version" : 1
+    },
+    "forecastStart" : "2022-11-14T15:38:00Z",
+    "forecastEnd" : "2022-11-14T17:00:00Z",
+    "minutes" : [
+      {
+        "precipitationChance" : 0,
+        "startTime" : "2022-11-14T15:38:00Z",
+        "precipitationIntensity" : 0
+      },
+      {
+        "precipitationChance" : 0,
+        "startTime" : "2022-11-14T15:39:00Z",
+        "precipitationIntensity" : 0
+      },
+      {
+        "precipitationChance" : 0,
+        "startTime" : "2022-11-14T15:40:00Z",
+        "precipitationIntensity" : 0
+      },
+      {
+        "precipitationChance" : 0,
+        "startTime" : "2022-11-14T15:41:00Z",
+        "precipitationIntensity" : 0
+      },
+      {
+        "precipitationChance" : 0,
+        "startTime" : "2022-11-14T15:42:00Z",
+        "precipitationIntensity" : 0
+      },
+      {
+        "precipitationChance" : 0,
+        "startTime" : "2022-11-14T15:43:00Z",
+        "precipitationIntensity" : 0
+      },
+      {
+        "precipitationChance" : 0,
+        "startTime" : "2022-11-14T15:44:00Z",
+        "precipitationIntensity" : 0
+      },
+      {
+        "precipitationChance" : 0,
+        "startTime" : "2022-11-14T15:45:00Z",
+        "precipitationIntensity" : 0
+      },
+      {
+        "precipitationChance" : 0,
+        "startTime" : "2022-11-14T15:46:00Z",
+        "precipitationIntensity" : 0
+      },
+      {
+        "precipitationChance" : 0,
+        "startTime" : "2022-11-14T15:47:00Z",
+        "precipitationIntensity" : 0
+      },
+      {
+        "precipitationChance" : 0,
+        "startTime" : "2022-11-14T15:48:00Z",
+        "precipitationIntensity" : 0
+      },
+      {
+        "precipitationChance" : 0,
+        "startTime" : "2022-11-14T15:49:00Z",
+        "precipitationIntensity" : 0
+      },
+      {
+        "precipitationChance" : 0,
+        "startTime" : "2022-11-14T15:50:00Z",
+        "precipitationIntensity" : 0
+      },
+      {
+        "precipitationChance" : 0,
+        "startTime" : "2022-11-14T15:51:00Z",
+        "precipitationIntensity" : 0
+      },
+      {
+        "precipitationChance" : 0,
+        "startTime" : "2022-11-14T15:52:00Z",
+        "precipitationIntensity" : 0
+      },
+      {
+        "precipitationChance" : 0,
+        "startTime" : "2022-11-14T15:53:00Z",
+        "precipitationIntensity" : 0
+      },
+      {
+        "precipitationChance" : 0,
+        "startTime" : "2022-11-14T15:54:00Z",
+        "precipitationIntensity" : 0
+      },
+      {
+        "precipitationChance" : 0,
+        "startTime" : "2022-11-14T15:55:00Z",
+        "precipitationIntensity" : 0
+      },
+      {
+        "precipitationChance" : 0,
+        "startTime" : "2022-11-14T15:56:00Z",
+        "precipitationIntensity" : 0
+      },
+      {
+        "precipitationChance" : 0,
+        "startTime" : "2022-11-14T15:57:00Z",
+        "precipitationIntensity" : 0
+      },
+      {
+        "precipitationChance" : 0,
+        "startTime" : "2022-11-14T15:58:00Z",
+        "precipitationIntensity" : 0
+      },
+      {
+        "precipitationChance" : 0,
+        "startTime" : "2022-11-14T15:59:00Z",
+        "precipitationIntensity" : 0
+      },
+      {
+        "precipitationChance" : 0,
+        "startTime" : "2022-11-14T16:00:00Z",
+        "precipitationIntensity" : 0
+      },
+      {
+        "precipitationChance" : 0,
+        "startTime" : "2022-11-14T16:01:00Z",
+        "precipitationIntensity" : 0
+      },
+      {
+        "precipitationChance" : 0,
+        "startTime" : "2022-11-14T16:02:00Z",
+        "precipitationIntensity" : 0
+      },
+      {
+        "precipitationChance" : 0,
+        "startTime" : "2022-11-14T16:03:00Z",
+        "precipitationIntensity" : 0
+      },
+      {
+        "precipitationChance" : 0,
+        "startTime" : "2022-11-14T16:04:00Z",
+        "precipitationIntensity" : 0
+      },
+      {
+        "precipitationChance" : 0,
+        "startTime" : "2022-11-14T16:05:00Z",
+        "precipitationIntensity" : 0
+      },
+      {
+        "precipitationChance" : 0,
+        "startTime" : "2022-11-14T16:06:00Z",
+        "precipitationIntensity" : 0
+      },
+      {
+        "precipitationChance" : 0,
+        "startTime" : "2022-11-14T16:07:00Z",
+        "precipitationIntensity" : 0
+      },
+      {
+        "precipitationChance" : 0,
+        "startTime" : "2022-11-14T16:08:00Z",
+        "precipitationIntensity" : 0
+      },
+      {
+        "precipitationChance" : 0,
+        "startTime" : "2022-11-14T16:09:00Z",
+        "precipitationIntensity" : 0
+      },
+      {
+        "precipitationChance" : 0,
+        "startTime" : "2022-11-14T16:10:00Z",
+        "precipitationIntensity" : 0
+      },
+      {
+        "precipitationChance" : 0,
+        "startTime" : "2022-11-14T16:11:00Z",
+        "precipitationIntensity" : 0
+      },
+      {
+        "precipitationChance" : 0,
+        "startTime" : "2022-11-14T16:12:00Z",
+        "precipitationIntensity" : 0
+      },
+      {
+        "precipitationChance" : 0,
+        "startTime" : "2022-11-14T16:13:00Z",
+        "precipitationIntensity" : 0
+      },
+      {
+        "precipitationChance" : 0,
+        "startTime" : "2022-11-14T16:14:00Z",
+        "precipitationIntensity" : 0
+      },
+      {
+        "precipitationChance" : 0,
+        "startTime" : "2022-11-14T16:15:00Z",
+        "precipitationIntensity" : 0
+      },
+      {
+        "precipitationChance" : 0,
+        "startTime" : "2022-11-14T16:16:00Z",
+        "precipitationIntensity" : 0
+      },
+      {
+        "precipitationChance" : 0,
+        "startTime" : "2022-11-14T16:17:00Z",
+        "precipitationIntensity" : 0
+      },
+      {
+        "precipitationChance" : 0,
+        "startTime" : "2022-11-14T16:18:00Z",
+        "precipitationIntensity" : 0
+      },
+      {
+        "precipitationChance" : 0,
+        "startTime" : "2022-11-14T16:19:00Z",
+        "precipitationIntensity" : 0
+      },
+      {
+        "precipitationChance" : 0,
+        "startTime" : "2022-11-14T16:20:00Z",
+        "precipitationIntensity" : 0
+      },
+      {
+        "precipitationChance" : 0,
+        "startTime" : "2022-11-14T16:21:00Z",
+        "precipitationIntensity" : 0
+      },
+      {
+        "precipitationChance" : 0,
+        "startTime" : "2022-11-14T16:22:00Z",
+        "precipitationIntensity" : 0
+      },
+      {
+        "precipitationChance" : 0,
+        "startTime" : "2022-11-14T16:23:00Z",
+        "precipitationIntensity" : 0
+      },
+      {
+        "precipitationChance" : 0,
+        "startTime" : "2022-11-14T16:24:00Z",
+        "precipitationIntensity" : 0
+      },
+      {
+        "precipitationChance" : 0,
+        "startTime" : "2022-11-14T16:25:00Z",
+        "precipitationIntensity" : 0
+      },
+      {
+        "precipitationChance" : 0,
+        "startTime" : "2022-11-14T16:26:00Z",
+        "precipitationIntensity" : 0
+      },
+      {
+        "precipitationChance" : 0,
+        "startTime" : "2022-11-14T16:27:00Z",
+        "precipitationIntensity" : 0
+      },
+      {
+        "precipitationChance" : 0,
+        "startTime" : "2022-11-14T16:28:00Z",
+        "precipitationIntensity" : 0
+      },
+      {
+        "precipitationChance" : 0,
+        "startTime" : "2022-11-14T16:29:00Z",
+        "precipitationIntensity" : 0
+      },
+      {
+        "precipitationChance" : 0,
+        "startTime" : "2022-11-14T16:30:00Z",
+        "precipitationIntensity" : 0
+      },
+      {
+        "precipitationChance" : 0,
+        "startTime" : "2022-11-14T16:31:00Z",
+        "precipitationIntensity" : 0
+      },
+      {
+        "precipitationChance" : 0,
+        "startTime" : "2022-11-14T16:32:00Z",
+        "precipitationIntensity" : 0
+      },
+      {
+        "precipitationChance" : 0,
+        "startTime" : "2022-11-14T16:33:00Z",
+        "precipitationIntensity" : 0
+      },
+      {
+        "precipitationChance" : 0,
+        "startTime" : "2022-11-14T16:34:00Z",
+        "precipitationIntensity" : 0
+      },
+      {
+        "precipitationChance" : 0,
+        "startTime" : "2022-11-14T16:35:00Z",
+        "precipitationIntensity" : 0
+      },
+      {
+        "precipitationChance" : 0,
+        "startTime" : "2022-11-14T16:36:00Z",
+        "precipitationIntensity" : 0
+      },
+      {
+        "precipitationChance" : 0,
+        "startTime" : "2022-11-14T16:37:00Z",
+        "precipitationIntensity" : 0
+      },
+      {
+        "precipitationChance" : 0,
+        "startTime" : "2022-11-14T16:38:00Z",
+        "precipitationIntensity" : 0
+      },
+      {
+        "precipitationChance" : 0,
+        "startTime" : "2022-11-14T16:39:00Z",
+        "precipitationIntensity" : 0
+      },
+      {
+        "precipitationChance" : 0,
+        "startTime" : "2022-11-14T16:40:00Z",
+        "precipitationIntensity" : 0
+      },
+      {
+        "precipitationChance" : 0,
+        "startTime" : "2022-11-14T16:41:00Z",
+        "precipitationIntensity" : 0
+      },
+      {
+        "precipitationChance" : 0,
+        "startTime" : "2022-11-14T16:42:00Z",
+        "precipitationIntensity" : 0
+      },
+      {
+        "precipitationChance" : 0,
+        "startTime" : "2022-11-14T16:43:00Z",
+        "precipitationIntensity" : 0
+      },
+      {
+        "precipitationChance" : 0,
+        "startTime" : "2022-11-14T16:44:00Z",
+        "precipitationIntensity" : 0
+      },
+      {
+        "precipitationChance" : 0,
+        "startTime" : "2022-11-14T16:45:00Z",
+        "precipitationIntensity" : 0
+      },
+      {
+        "precipitationChance" : 0,
+        "startTime" : "2022-11-14T16:46:00Z",
+        "precipitationIntensity" : 0
+      },
+      {
+        "precipitationChance" : 0,
+        "startTime" : "2022-11-14T16:47:00Z",
+        "precipitationIntensity" : 0
+      },
+      {
+        "precipitationChance" : 0,
+        "startTime" : "2022-11-14T16:48:00Z",
+        "precipitationIntensity" : 0
+      },
+      {
+        "precipitationChance" : 0,
+        "startTime" : "2022-11-14T16:49:00Z",
+        "precipitationIntensity" : 0
+      },
+      {
+        "precipitationChance" : 0,
+        "startTime" : "2022-11-14T16:50:00Z",
+        "precipitationIntensity" : 0
+      },
+      {
+        "precipitationChance" : 0,
+        "startTime" : "2022-11-14T16:51:00Z",
+        "precipitationIntensity" : 0
+      },
+      {
+        "precipitationChance" : 0,
+        "startTime" : "2022-11-14T16:52:00Z",
+        "precipitationIntensity" : 0
+      },
+      {
+        "precipitationChance" : 0,
+        "startTime" : "2022-11-14T16:53:00Z",
+        "precipitationIntensity" : 0
+      },
+      {
+        "precipitationChance" : 0,
+        "startTime" : "2022-11-14T16:54:00Z",
+        "precipitationIntensity" : 0
+      },
+      {
+        "precipitationChance" : 0,
+        "startTime" : "2022-11-14T16:55:00Z",
+        "precipitationIntensity" : 0
+      },
+      {
+        "precipitationChance" : 0,
+        "startTime" : "2022-11-14T16:56:00Z",
+        "precipitationIntensity" : 0
+      },
+      {
+        "precipitationChance" : 0,
+        "startTime" : "2022-11-14T16:57:00Z",
+        "precipitationIntensity" : 0
+      },
+      {
+        "precipitationChance" : 0,
+        "startTime" : "2022-11-14T16:58:00Z",
+        "precipitationIntensity" : 0
+      },
+      {
+        "precipitationChance" : 0,
+        "startTime" : "2022-11-14T16:59:00Z",
+        "precipitationIntensity" : 0
+      }
+    ],
+    "name" : "NextHourForecast",
+    "summary" : [
+      {
+        "startTime" : "2022-11-14T15:38:00Z",
+        "condition" : "clear",
+        "precipitationChance" : 0,
+        "precipitationIntensity" : 0
+      }
+    ]
+  }

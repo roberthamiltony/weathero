@@ -42,7 +42,7 @@ class WeatherManager {
             dailyStart: forecastStart,
             hourlyStart: forecastStart
         )
-        fetchingDataFuture = WeatherAPIClient()
+        fetchingDataFuture = MockWeatherAPIClient()
             .perform(request: request)
             .receive(on: DispatchQueue.main)
             .sink { [weak self] error in
