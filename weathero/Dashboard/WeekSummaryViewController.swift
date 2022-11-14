@@ -33,11 +33,12 @@ class WeekSummaryViewController: UIViewController {
     
     private var subscriptions: [AnyCancellable] = []
     let weatherManager: WeatherManager = WeatherManager(location: .init(latitude: 51.493169, longitude: -0.098912))
-    private lazy var viewModel = WeekSummaryViewModel(weatherManager: weatherManager)
+    private let viewModel = WeekSummaryViewModel()
     
     weak var coordinator: WeekSummaryCoordinator?
     
     override func viewDidLoad() {
+        viewModel.weatherManager = weatherManager
         setupViews()
         setupConstraints()
         setupCollectionView()
@@ -157,19 +158,19 @@ class WeekSummaryViewModel {
     @Published private(set) var locationName: String?
     
     private var managerSubscriptions: [AnyCancellable] = []
-    let weatherManager: WeatherManager
-    
-    init(weatherManager: WeatherManager) {
-        self.weatherManager = weatherManager
-        weatherManager.$currentLocation
-            .sink { [weak self] location in
-                self?.nameForLocation(location: location)
-            }
-            .store(in: &managerSubscriptions)
+    var weatherManager: WeatherManager? {
+        didSet {
+            managerSubscriptions.cancelAndRemoveAll()
+            weatherManager?.$currentLocation
+                .sink { [weak self] location in
+                    self?.nameForLocation(location: location)
+                }
+                .store(in: &managerSubscriptions)
+        }
     }
     
     var temperatureRange: ClosedRange<Float>? {
-        switch weatherManager.nextDaysData {
+        switch weatherManager?.nextDaysData {
         case .success(let days):
             guard
                 let minimum = days.min(by: {$0.temperatureMin < $1.temperatureMin})?.temperatureMin,

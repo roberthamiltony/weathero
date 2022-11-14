@@ -111,7 +111,7 @@ struct NextHourGraph: View {
                 .chartYScale(domain: WeatherClassifications.rainChartScale)
                 .chartYAxis(.hidden)
                 .chartXAxis(.hidden)
-                .frame(height: 200)
+                .frame(height: 150)
             } else {
                 Text("No precipitation for the next hour")
                     .font(.title3)
