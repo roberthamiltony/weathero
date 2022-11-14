@@ -23,6 +23,8 @@ class WeatherManager {
     }
     let forecastStart: Date?
     
+    var apiClient: APIClient = WeatherAPIClient()
+    
     /// Initializes a weather manager instance
     /// - Parameters:
     ///   - location: The location to get weather for
@@ -42,7 +44,7 @@ class WeatherManager {
             dailyStart: forecastStart,
             hourlyStart: forecastStart
         )
-        fetchingDataFuture = MockWeatherAPIClient()
+        fetchingDataFuture = apiClient
             .perform(request: request)
             .receive(on: DispatchQueue.main)
             .sink { [weak self] error in

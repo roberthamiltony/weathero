@@ -15,25 +15,7 @@ protocol LocationPickerCoordinator: AnyObject {
 
 class LocationPickerViewController: UIViewController {
     let map = MKMapView()
-    var proposedLocation: CLLocation? {
-        didSet {
-            loadViewIfNeeded()
-            map.removeAnnotations(map.annotations)
-            if let proposedLocation {
-                map.centerCoordinate = proposedLocation.coordinate
-                let annotation = MKPointAnnotation()
-                annotation.coordinate = proposedLocation.coordinate
-                map.addAnnotation(annotation)
-                UIView.animate(withDuration: 0.25) { [confirmButton] in
-                    confirmButton.isHidden = false
-                }
-            } else {
-                UIView.animate(withDuration: 0.25) { [confirmButton] in
-                    confirmButton.isHidden = true
-                }
-            }
-        }
-    }
+    var proposedLocation: CLLocation? { didSet { bindCoordinate() } }
     
     private lazy var confirmButton: UIButton = {
         let button = UIButton()
@@ -54,6 +36,7 @@ class LocationPickerViewController: UIViewController {
     }
     
     private func setupViews() {
+        view.backgroundColor = .systemBackground
         [map, confirmButton].forEach { view.addSubview($0) }
     }
     
@@ -68,6 +51,24 @@ class LocationPickerViewController: UIViewController {
     
     private func setupGestures() {
         map.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(didTapMap)))
+    }
+    
+    private func bindCoordinate() {
+        loadViewIfNeeded()
+        map.removeAnnotations(map.annotations)
+        if let proposedLocation {
+            map.centerCoordinate = proposedLocation.coordinate
+            let annotation = MKPointAnnotation()
+            annotation.coordinate = proposedLocation.coordinate
+            map.addAnnotation(annotation)
+            UIView.animate(withDuration: 0.25) { [confirmButton] in
+                confirmButton.isHidden = false
+            }
+        } else {
+            UIView.animate(withDuration: 0.25) { [confirmButton] in
+                confirmButton.isHidden = true
+            }
+        }
     }
     
     @objc private func didTapMap(_ gesture: UITapGestureRecognizer) {

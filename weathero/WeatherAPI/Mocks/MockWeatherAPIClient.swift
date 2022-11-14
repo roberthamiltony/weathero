@@ -12,6 +12,9 @@ class MockWeatherAPIClient: APIClient {
     var minTemperatureRange: Range<Float> = (-10.0..<0)
     var maxTemperatureRange: Range<Float> = (0.1..<10.0)
     
+    var forceExcludeNextHourData = false
+    var forceExcludeDailyForecastData = false
+    
     func perform<T>(request: T, completion: @escaping ((Result<T.Response, Error>) -> Void)) where T : APIRequest {
         guard let weatherRequest = request as? WeatherRequest else {
             completion(.failure(MockErrors.mockError))
@@ -21,6 +24,7 @@ class MockWeatherAPIClient: APIClient {
         decoder.dateDecodingStrategy = .iso8601
         var returnModel = Weather()
         if weatherRequest.dataSets.contains(.forecastDaily),
+           !forceExcludeDailyForecastData,
            let mockDataURL = Bundle.main.url(forResource: "MockDailyResponse", withExtension: "json"),
            let mockData = try? Data(contentsOf: mockDataURL),
            var forecastDaily = try? decoder.decode(DailyForecast.DailyForecastData.self, from: mockData)
@@ -33,6 +37,7 @@ class MockWeatherAPIClient: APIClient {
             returnModel.forecastDaily = forecastDaily
         }
         if weatherRequest.dataSets.contains(.forecastNextHour),
+           !forceExcludeNextHourData,
            let mockDataURL = Bundle.main.url(forResource: "MockNextHourResponse", withExtension: "json"),
            let mockData = try? Data(contentsOf: mockDataURL),
            var nextHour = try? decoder.decode(NextHourForecast.NextHourForecastData.self, from: mockData)

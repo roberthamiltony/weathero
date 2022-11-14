@@ -26,21 +26,21 @@
 		546EAC3729229DF40011833F /* MockDailyResponse.json in Resources */ = {isa = PBXBuildFile; fileRef = 546EAC3629229DF40011833F /* MockDailyResponse.json */; };
 		546EAC3929229E360011833F /* MockWeatherAPIClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 546EAC3829229E360011833F /* MockWeatherAPIClient.swift */; };
 		546EAC3B29229F960011833F /* MockNextHourResponse.json in Resources */ = {isa = PBXBuildFile; fileRef = 546EAC3A29229F960011833F /* MockNextHourResponse.json */; };
+		546EAC3D2922A80A0011833F /* LocationCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 546EAC3C2922A80A0011833F /* LocationCoordinator.swift */; };
+		546EAC3F2922A83C0011833F /* WeatherManagerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 546EAC3E2922A83C0011833F /* WeatherManagerTests.swift */; };
+		546EAC442922A9280011833F /* CocoaLumberjackSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 546EAC432922A9280011833F /* CocoaLumberjackSwift */; };
+		546EAC492922AB940011833F /* CocoaLumberjackSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 546EAC482922AB940011833F /* CocoaLumberjackSwift */; };
 		546F04A12916928A0006A846 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 546F04A02916928A0006A846 /* AppDelegate.swift */; };
 		546F04A32916928A0006A846 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 546F04A22916928A0006A846 /* SceneDelegate.swift */; };
 		546F04AA2916928C0006A846 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 546F04A92916928C0006A846 /* Assets.xcassets */; };
 		546F04AD2916928C0006A846 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 546F04AB2916928C0006A846 /* LaunchScreen.storyboard */; };
-		546F04B82916928D0006A846 /* weatheroTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 546F04B72916928D0006A846 /* weatheroTests.swift */; };
 		546F04C22916928D0006A846 /* weatheroUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 546F04C12916928D0006A846 /* weatheroUITests.swift */; };
 		546F04C42916928D0006A846 /* weatheroUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 546F04C32916928D0006A846 /* weatheroUITestsLaunchTests.swift */; };
 		546F04D2291693D00006A846 /* APIClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 546F04D1291693D00006A846 /* APIClient.swift */; };
 		546F04D72916943D0006A846 /* WeatherAPIClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 546F04D62916943D0006A846 /* WeatherAPIClient.swift */; };
 		546F04E02917D1090006A846 /* SnapKit in Frameworks */ = {isa = PBXBuildFile; productRef = 546F04DF2917D1090006A846 /* SnapKit */; };
-		546F04E62917DA440006A846 /* JWTKit in Frameworks */ = {isa = PBXBuildFile; productRef = 546F04E52917DA440006A846 /* JWTKit */; };
 		546F04E829190A0C0006A846 /* Weather.swift in Sources */ = {isa = PBXBuildFile; fileRef = 546F04E729190A0C0006A846 /* Weather.swift */; };
 		54B79862291D1B12002D9F7F /* AvailabilityRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54B79861291D1B12002D9F7F /* AvailabilityRequest.swift */; };
-		54B79865291D1BFD002D9F7F /* CocoaLumberjack in Frameworks */ = {isa = PBXBuildFile; productRef = 54B79864291D1BFD002D9F7F /* CocoaLumberjack */; };
-		54B79867291D1BFD002D9F7F /* CocoaLumberjackSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 54B79866291D1BFD002D9F7F /* CocoaLumberjackSwift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -80,6 +80,8 @@
 		546EAC3629229DF40011833F /* MockDailyResponse.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = MockDailyResponse.json; sourceTree = "<group>"; };
 		546EAC3829229E360011833F /* MockWeatherAPIClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockWeatherAPIClient.swift; sourceTree = "<group>"; };
 		546EAC3A29229F960011833F /* MockNextHourResponse.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = MockNextHourResponse.json; sourceTree = "<group>"; };
+		546EAC3C2922A80A0011833F /* LocationCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationCoordinator.swift; sourceTree = "<group>"; };
+		546EAC3E2922A83C0011833F /* WeatherManagerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherManagerTests.swift; sourceTree = "<group>"; };
 		546F049D2916928A0006A846 /* weathero.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = weathero.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		546F04A02916928A0006A846 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		546F04A22916928A0006A846 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -87,7 +89,6 @@
 		546F04AC2916928C0006A846 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		546F04AE2916928C0006A846 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		546F04B32916928D0006A846 /* weatheroTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = weatheroTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		546F04B72916928D0006A846 /* weatheroTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = weatheroTests.swift; sourceTree = "<group>"; };
 		546F04BD2916928D0006A846 /* weatheroUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = weatheroUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		546F04C12916928D0006A846 /* weatheroUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = weatheroUITests.swift; sourceTree = "<group>"; };
 		546F04C32916928D0006A846 /* weatheroUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = weatheroUITestsLaunchTests.swift; sourceTree = "<group>"; };
@@ -103,9 +104,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				54B79865291D1BFD002D9F7F /* CocoaLumberjack in Frameworks */,
-				546F04E62917DA440006A846 /* JWTKit in Frameworks */,
-				54B79867291D1BFD002D9F7F /* CocoaLumberjackSwift in Frameworks */,
+				546EAC442922A9280011833F /* CocoaLumberjackSwift in Frameworks */,
 				546F04E02917D1090006A846 /* SnapKit in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -114,6 +113,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				546EAC492922AB940011833F /* CocoaLumberjackSwift in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -182,6 +182,7 @@
 				546EAC2B2922721C0011833F /* Coordinator.swift */,
 				546EAC2E292272550011833F /* NavigationCoordinator.swift */,
 				546EAC30292273110011833F /* AppCoordinator.swift */,
+				546EAC3C2922A80A0011833F /* LocationCoordinator.swift */,
 			);
 			path = Coordinator;
 			sourceTree = "<group>";
@@ -204,6 +205,13 @@
 			path = Mocks;
 			sourceTree = "<group>";
 		};
+		546EAC472922AB940011833F /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		546F04942916928A0006A846 = {
 			isa = PBXGroup;
 			children = (
@@ -211,6 +219,7 @@
 				546F04B62916928D0006A846 /* weatheroTests */,
 				546F04C02916928D0006A846 /* weatheroUITests */,
 				546F049E2916928A0006A846 /* Products */,
+				546EAC472922AB940011833F /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -246,7 +255,7 @@
 		546F04B62916928D0006A846 /* weatheroTests */ = {
 			isa = PBXGroup;
 			children = (
-				546F04B72916928D0006A846 /* weatheroTests.swift */,
+				546EAC3E2922A83C0011833F /* WeatherManagerTests.swift */,
 			);
 			path = weatheroTests;
 			sourceTree = "<group>";
@@ -314,9 +323,7 @@
 			name = weathero;
 			packageProductDependencies = (
 				546F04DF2917D1090006A846 /* SnapKit */,
-				546F04E52917DA440006A846 /* JWTKit */,
-				54B79864291D1BFD002D9F7F /* CocoaLumberjack */,
-				54B79866291D1BFD002D9F7F /* CocoaLumberjackSwift */,
+				546EAC432922A9280011833F /* CocoaLumberjackSwift */,
 			);
 			productName = weathero;
 			productReference = 546F049D2916928A0006A846 /* weathero.app */;
@@ -336,6 +343,9 @@
 				546F04B52916928D0006A846 /* PBXTargetDependency */,
 			);
 			name = weatheroTests;
+			packageProductDependencies = (
+				546EAC482922AB940011833F /* CocoaLumberjackSwift */,
+			);
 			productName = weatheroTests;
 			productReference = 546F04B32916928D0006A846 /* weatheroTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
@@ -392,8 +402,7 @@
 			mainGroup = 546F04942916928A0006A846;
 			packageReferences = (
 				546F04DE2917D1090006A846 /* XCRemoteSwiftPackageReference "SnapKit" */,
-				546F04E42917DA440006A846 /* XCRemoteSwiftPackageReference "jwt-kit" */,
-				54B79863291D1BFD002D9F7F /* XCRemoteSwiftPackageReference "CocoaLumberjack" */,
+				546EAC402922A9280011833F /* XCRemoteSwiftPackageReference "CocoaLumberjack" */,
 			);
 			productRefGroup = 546F049E2916928A0006A846 /* Products */;
 			projectDirPath = "";
@@ -456,6 +465,7 @@
 				546EAC1329215E330011833F /* NextHourView.swift in Sources */,
 				546EAC2A292270670011833F /* WeeklySummaryTitleView.swift in Sources */,
 				546EAC1C29223FF90011833F /* UICollectionView.swift in Sources */,
+				546EAC3D2922A80A0011833F /* LocationCoordinator.swift in Sources */,
 				546F04D2291693D00006A846 /* APIClient.swift in Sources */,
 				546EAC1929217BA00011833F /* NextDaysView.swift in Sources */,
 				546F04E829190A0C0006A846 /* Weather.swift in Sources */,
@@ -469,7 +479,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				546F04B82916928D0006A846 /* weatheroTests.swift in Sources */,
+				546EAC3F2922A83C0011833F /* WeatherManagerTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -797,52 +807,39 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
+		546EAC402922A9280011833F /* XCRemoteSwiftPackageReference "CocoaLumberjack" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/CocoaLumberjack/CocoaLumberjack.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 3.0.0;
+			};
+		};
 		546F04DE2917D1090006A846 /* XCRemoteSwiftPackageReference "SnapKit" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/SnapKit/SnapKit.git";
 			requirement = {
-				branch = develop;
-				kind = branch;
-			};
-		};
-		546F04E42917DA440006A846 /* XCRemoteSwiftPackageReference "jwt-kit" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/vapor/jwt-kit.git";
-			requirement = {
-				branch = main;
-				kind = branch;
-			};
-		};
-		54B79863291D1BFD002D9F7F /* XCRemoteSwiftPackageReference "CocoaLumberjack" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/CocoaLumberjack/CocoaLumberjack.git";
-			requirement = {
-				branch = master;
-				kind = branch;
+				kind = upToNextMajorVersion;
+				minimumVersion = 5.0.0;
 			};
 		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		546EAC432922A9280011833F /* CocoaLumberjackSwift */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 546EAC402922A9280011833F /* XCRemoteSwiftPackageReference "CocoaLumberjack" */;
+			productName = CocoaLumberjackSwift;
+		};
+		546EAC482922AB940011833F /* CocoaLumberjackSwift */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 546EAC402922A9280011833F /* XCRemoteSwiftPackageReference "CocoaLumberjack" */;
+			productName = CocoaLumberjackSwift;
+		};
 		546F04DF2917D1090006A846 /* SnapKit */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 546F04DE2917D1090006A846 /* XCRemoteSwiftPackageReference "SnapKit" */;
 			productName = SnapKit;
-		};
-		546F04E52917DA440006A846 /* JWTKit */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 546F04E42917DA440006A846 /* XCRemoteSwiftPackageReference "jwt-kit" */;
-			productName = JWTKit;
-		};
-		54B79864291D1BFD002D9F7F /* CocoaLumberjack */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 54B79863291D1BFD002D9F7F /* XCRemoteSwiftPackageReference "CocoaLumberjack" */;
-			productName = CocoaLumberjack;
-		};
-		54B79866291D1BFD002D9F7F /* CocoaLumberjackSwift */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 54B79863291D1BFD002D9F7F /* XCRemoteSwiftPackageReference "CocoaLumberjack" */;
-			productName = CocoaLumberjackSwift;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

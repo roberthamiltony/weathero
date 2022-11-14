@@ -6,7 +6,6 @@
 //
 
 import UIKit
-import JWTKit
 
 class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     
