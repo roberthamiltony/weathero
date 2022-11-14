@@ -18,6 +18,7 @@
 		546EAC22292248440011833F /* Array.swift in Sources */ = {isa = PBXBuildFile; fileRef = 546EAC21292248440011833F /* Array.swift */; };
 		546EAC24292255950011833F /* GradientView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 546EAC23292255950011833F /* GradientView.swift */; };
 		546EAC26292256850011833F /* Color.swift in Sources */ = {isa = PBXBuildFile; fileRef = 546EAC25292256850011833F /* Color.swift */; };
+		546EAC2A292270670011833F /* WeeklySummaryTitleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 546EAC29292270670011833F /* WeeklySummaryTitleView.swift */; };
 		546F04A12916928A0006A846 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 546F04A02916928A0006A846 /* AppDelegate.swift */; };
 		546F04A32916928A0006A846 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 546F04A22916928A0006A846 /* SceneDelegate.swift */; };
 		546F04AA2916928C0006A846 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 546F04A92916928C0006A846 /* Assets.xcassets */; };
@@ -64,6 +65,7 @@
 		546EAC21292248440011833F /* Array.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Array.swift; sourceTree = "<group>"; };
 		546EAC23292255950011833F /* GradientView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GradientView.swift; sourceTree = "<group>"; };
 		546EAC25292256850011833F /* Color.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Color.swift; sourceTree = "<group>"; };
+		546EAC29292270670011833F /* WeeklySummaryTitleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeeklySummaryTitleView.swift; sourceTree = "<group>"; };
 		546F049D2916928A0006A846 /* weathero.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = weathero.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		546F04A02916928A0006A846 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		546F04A22916928A0006A846 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -114,9 +116,8 @@
 		546EAC1129215E210011833F /* Dashboard */ = {
 			isa = PBXGroup;
 			children = (
+				546EAC2729226B3A0011833F /* Views */,
 				546EAC0D292112950011833F /* WeekSummaryViewController.swift */,
-				546EAC1229215E330011833F /* NextHourView.swift */,
-				546EAC1829217BA00011833F /* NextDaysView.swift */,
 				546EAC1D292240F60011833F /* WeatherManager.swift */,
 			);
 			path = Dashboard;
@@ -149,6 +150,16 @@
 				546EAC23292255950011833F /* GradientView.swift */,
 			);
 			path = UIKit;
+			sourceTree = "<group>";
+		};
+		546EAC2729226B3A0011833F /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				546EAC1229215E330011833F /* NextHourView.swift */,
+				546EAC1829217BA00011833F /* NextDaysView.swift */,
+				546EAC29292270670011833F /* WeeklySummaryTitleView.swift */,
+			);
+			path = Views;
 			sourceTree = "<group>";
 		};
 		546F04942916928A0006A846 = {
@@ -392,6 +403,7 @@
 				546EAC22292248440011833F /* Array.swift in Sources */,
 				54B79862291D1B12002D9F7F /* AvailabilityRequest.swift in Sources */,
 				546EAC1329215E330011833F /* NextHourView.swift in Sources */,
+				546EAC2A292270670011833F /* WeeklySummaryTitleView.swift in Sources */,
 				546EAC1C29223FF90011833F /* UICollectionView.swift in Sources */,
 				546F04D2291693D00006A846 /* APIClient.swift in Sources */,
 				546EAC1929217BA00011833F /* NextDaysView.swift in Sources */,

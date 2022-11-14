@@ -38,6 +38,8 @@ class NextDaysView: UIView {
     }
 }
 
+// MARK: Cells
+
 class DayWeatherCollectionViewCell: UICollectionViewCell {
     static let identifier = "com.rob.weatheropo.DayWeatherCollectionViewCell"
     let dateLabel: UILabel = {
@@ -56,8 +58,6 @@ class DayWeatherCollectionViewCell: UICollectionViewCell {
     }()
     
     let temperatureRangeView = TemperatureRangeView()
-    
-    var viewModel: WeekSummaryViewModel?
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -85,14 +85,14 @@ class DayWeatherCollectionViewCell: UICollectionViewCell {
             make.bottom.equalToSuperview().inset(4)
         }
         temperatureRangeView.snp.makeConstraints { make in
-            make.left.equalTo(precipirationTypeImageView.snp.right).offset(4)
+            make.left.equalTo(precipirationTypeImageView.snp.right).offset(8)
             make.right.equalToSuperview().inset(4)
             make.centerY.equalTo(precipirationTypeImageView)
             make.height.equalTo(32)
         }
     }
     
-    func bind(day: DailyForecast.DayWeatherCondition) {
+    func bind(day: DailyForecast.DayWeatherCondition, temperatureRange: ClosedRange<Float>?) {
         var image: UIImage?
         switch day.precipitationType {
         case .rain, .precipitation:
@@ -123,7 +123,7 @@ class DayWeatherCollectionViewCell: UICollectionViewCell {
         let dayInWeek = dateFormatter.string(from: day.forecastStart)
         dateLabel.text = dayInWeek
         
-        if let viewModel, let range = viewModel.temperatureRange {
+        if let range = temperatureRange {
             temperatureRangeView.bind(range: range, min: day.temperatureMin, max: day.temperatureMax)
             temperatureRangeView.isHidden = false
         } else {
@@ -163,12 +163,12 @@ class TemperatureRangeView: UIView {
     }
     
     func bind(range: ClosedRange<Float>, min: Float, max: Float) {
+        layoutIfNeeded()
         let width = frame.width
         let rangeWidth = range.upperBound - range.lowerBound
         let minimumOffset = CGFloat((min - range.lowerBound) / rangeWidth) * width
         let maximumOffset = CGFloat((max - range.lowerBound) / rangeWidth) * width
         rangeBubble.frame = CGRect(x: minimumOffset, y: 0, width: maximumOffset - minimumOffset, height: frame.height)
-        
         backgroundGradient.gradient.colors = [coldColour.cgColor, UIColor.white.cgColor, hotColour.cgColor]
         let coldLocation = (Float(WeatherClassifications.cold) - range.lowerBound) / rangeWidth
         let hotLocation = (Float(WeatherClassifications.hot) - range.lowerBound) / rangeWidth
@@ -233,29 +233,6 @@ class DayWeatherFailedCollectionViewCell: UICollectionViewCell {
         failedIndicator.snp.makeConstraints { make in
             make.center.equalToSuperview()
             make.width.height.equalTo(40)
-        }
-    }
-}
-
-struct NextDaysGraphs: View {
-    @ObservedObject var weatherManager: WeatherManager
-    var body: some View {
-        VStack {
-            ScrollView {
-                switch weatherManager.nextDaysData {
-                case .success(let days):
-                    ForEach(days, id: \.forecastStart) { day in
-                        Text(day.forecastStart.formatted())
-                    }
-                case .failure:
-                    Button("Retry") { [weatherManager] in
-                        weatherManager.getData(dataSets: [.forecastDaily])
-                    }
-                case .none:
-                    ProgressView()
-                }
-            }
-            Spacer()
         }
     }
 }

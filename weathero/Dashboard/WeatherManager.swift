@@ -7,16 +7,19 @@
 
 import Foundation
 import Combine
+import CoreLocation
 
 class WeatherManager: ObservableObject {
     @Published private(set) var nextHourData: Result<[MinutePrecipitationData], Error>?
     @Published private(set) var nextDaysData: Result<[DailyForecast.DayWeatherCondition], Error>?
     
+    @Published var currentLocation: CLLocation? = .init(latitude: 51.493169, longitude: -0.098912)
+    
     private var fetchingDataFuture: AnyCancellable?
     func getData(dataSets: [WeatherRequest.DataSet]) {
-        guard fetchingDataFuture == nil else { return }
+        guard fetchingDataFuture == nil, let currentLocation else { return }
         fetchingDataFuture = WeatherAPIClient()
-            .perform(request: WeatherRequest(latitude: 53.498272, longitude: -6.672857, dataSets: dataSets))
+            .perform(request: WeatherRequest(latitude: Float(currentLocation.coordinate.latitude), longitude: Float(currentLocation.coordinate.longitude), dataSets: dataSets))
             .receive(on: DispatchQueue.main)
             .sink { [weak self] error in
                 self?.fetchingDataFuture?.cancel()

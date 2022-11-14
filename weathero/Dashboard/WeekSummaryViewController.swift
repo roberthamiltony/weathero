@@ -11,11 +11,14 @@ import SwiftUI
 import Charts
 import SnapKit
 import Combine
+import CoreLocation
 
 class WeekSummaryViewController: UIViewController {
+    private let titleView = WeeklySummaryTitleView()
     private lazy var nextHourView: NextHourView = NextHourView(weatherManager: weatherManager)
     private let nextDaysView: NextDaysView = NextDaysView()
-    private var viewModelSubscriptions: [AnyCancellable] = []
+    
+    private var subscriptions: [AnyCancellable] = []
     private let weatherManager = WeatherManager()
     private lazy var viewModel = WeekSummaryViewModel(weatherManager: weatherManager)
     
@@ -29,13 +32,17 @@ class WeekSummaryViewController: UIViewController {
     
     private func setupViews() {
         view.backgroundColor = .systemBackground
-        view.addSubview(nextHourView)
-        view.addSubview(nextDaysView)
+        [titleView, nextHourView, nextDaysView].forEach { view.addSubview($0) }
     }
     
     private func setupConstraints() {
+        titleView.snp.makeConstraints { make in
+            make.top.equalTo(view.safeAreaLayoutGuide).inset(16)
+            make.left.right.equalToSuperview().inset(16)
+        }
         nextHourView.snp.makeConstraints { make in
-            make.top.left.right.equalToSuperview()
+            make.top.equalTo(titleView.snp.bottom).offset(8)
+            make.left.right.equalToSuperview()
         }
         nextDaysView.snp.makeConstraints { make in
             make.top.equalTo(nextHourView.snp.bottom).offset(8)
@@ -47,7 +54,14 @@ class WeekSummaryViewController: UIViewController {
     private func setupSubscriptions() {
         weatherManager.$nextDaysData
             .sink { [nextDaysView] _ in nextDaysView.collectionView.reloadData() }
-            .store(in: &viewModelSubscriptions)
+            .store(in: &subscriptions)
+        weatherManager.$currentLocation
+            .sink { [weatherManager] _ in weatherManager.getData(dataSets: [.forecastNextHour, .forecastDaily]) }
+            .store(in: &subscriptions)
+        viewModel.$locationName
+            .map { $0 == nil ? " " : $0 }
+            .assign(to: \.title, on: titleView)
+            .store(in: &subscriptions)
     }
     
     private func setupCollectionView() {
@@ -85,8 +99,7 @@ extension WeekSummaryViewController: UICollectionViewDelegate, UICollectionViewD
     private func dayWeatherCell(_ collectionView: UICollectionView, indexPath: IndexPath, days: [DailyForecast.DayWeatherCondition]) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: DayWeatherCollectionViewCell.identifier, for: indexPath)
         guard let day = days.safeGet(indexPath.row), let weatherCell = cell as? DayWeatherCollectionViewCell else { return cell }
-        weatherCell.viewModel = viewModel
-        weatherCell.bind(day: day)
+        weatherCell.bind(day: day, temperatureRange: viewModel.temperatureRange)
         return weatherCell
     }
     
@@ -95,15 +108,23 @@ extension WeekSummaryViewController: UICollectionViewDelegate, UICollectionViewD
     }
     
     private func dayWeatherLoadingCell(_ collectionView: UICollectionView, indexPath: IndexPath) -> UICollectionViewCell {
-        collectionView.dequeueReusableCell(withReuseIdentifier: DayWeatherLoadingCollectionViewCell.identifier, for: indexPath)
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: DayWeatherLoadingCollectionViewCell.identifier, for: indexPath)
+        guard let loadingCell = cell as? DayWeatherLoadingCollectionViewCell else { return cell }
+        loadingCell.activityInditcator.startAnimating()
+        return loadingCell
     }
 }
 
 class WeekSummaryViewModel {
+    private var subscriptions: [AnyCancellable] = []
+    @Published var locationName: String?
     var weatherManager: WeatherManager
     
     init(weatherManager: WeatherManager) {
         self.weatherManager = weatherManager
+        weatherManager.$currentLocation
+            .sink { [weak self] location in self?.nameForLocation(location: location) }
+            .store(in: &subscriptions)
     }
     
     var temperatureRange: ClosedRange<Float>? {
@@ -118,6 +139,19 @@ class WeekSummaryViewModel {
             return (minimum...maximum)
         default:
             return nil
+        }
+    }
+    
+    private func nameForLocation(location: CLLocation?) {
+        guard let location else {
+            return
+        }
+        CLGeocoder().reverseGeocodeLocation(location) { [weak self] placemarks, error in
+            guard let placemark = placemarks?.first else {
+                self?.locationName = "\(location.coordinate.latitude), \(location.coordinate.longitude)"
+                return
+            }
+            self?.locationName = placemark.name ?? "\(location.coordinate.latitude), \(location.coordinate.longitude)"
         }
     }
 }
