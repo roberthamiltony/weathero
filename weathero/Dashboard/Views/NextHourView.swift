@@ -52,7 +52,7 @@ class NextHourView: UIView {
             make.top.equalTo(title.snp.bottom).offset(8)
             make.left.right.equalTo(safeAreaLayoutGuide)
             make.bottom.equalToSuperview()
-            make.height.equalTo(200)
+//            make.height.equalTo(200)
         }
     }
 }
@@ -68,8 +68,10 @@ struct NextHourGraph: View {
                 Button("Retry") { [weatherManager] in
                     weatherManager.getData(dataSets: [.forecastNextHour])
                 }
+                .frame(height: 100)
             case .none:
                 ProgressView()
+                    .frame(height: 100)
             }
         }
     }
@@ -104,10 +106,12 @@ struct NextHourGraph: View {
                 .chartYScale(domain: WeatherClassifications.rainChartScale)
                 .chartYAxis(.hidden)
                 .chartXAxis(.hidden)
+                .frame(height: 200)
             } else {
                 Text("No precipitation for the next hour")
                     .font(.title3)
                     .foregroundColor(.init(UIColor.label))
+                    .frame(height: 100)
             }
         }
     }

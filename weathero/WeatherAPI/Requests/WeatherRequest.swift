@@ -15,7 +15,9 @@ struct WeatherRequest: APIRequest {
         [
             URLQueryItem(name: "country", value: countryCode),
             URLQueryItem(name: "dataSets", value: dataSets.map { $0.rawValue }.joined(separator: ",")),
-            URLQueryItem(name: "timezone", value: timezone)
+            URLQueryItem(name: "timezone", value: timezone),
+            URLQueryItem(name: "dailyStart", value: string(from: dailyStart)),
+            URLQueryItem(name: "hourlyStart", value: string(from: hourlyStart))
         ]
     }
     
@@ -30,6 +32,13 @@ struct WeatherRequest: APIRequest {
     var dailyStart: Date?  // defaults to today
     var hourlyEnd: Date?
     var hourlyStart: Date?
+    
+    private func string(from date: Date?) -> String? {
+        if let date {
+            return ISO8601DateFormatter().string(from: date)
+        }
+        return nil
+    }
     
     enum DataSet: String {
         case currentWeather, forecastDaily, forecastHourly, forecastNextHour, weatherAlerts

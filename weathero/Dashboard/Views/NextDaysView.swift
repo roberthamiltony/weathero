@@ -39,7 +39,6 @@ class NextDaysView: UIView {
 }
 
 // MARK: Cells
-
 class DayWeatherCollectionViewCell: UICollectionViewCell {
     static let identifier = "com.rob.weatheropo.DayWeatherCollectionViewCell"
     let dateLabel: UILabel = {

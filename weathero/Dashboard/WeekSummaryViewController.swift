@@ -19,7 +19,7 @@ class WeekSummaryViewController: UIViewController {
     private let nextDaysView: NextDaysView = NextDaysView()
     
     private var subscriptions: [AnyCancellable] = []
-    private let weatherManager = WeatherManager()
+    var weatherManager = WeatherManager(location: .init(latitude: 51.493169, longitude: -0.098912))
     private lazy var viewModel = WeekSummaryViewModel(weatherManager: weatherManager)
     
     override func viewDidLoad() {
@@ -54,9 +54,6 @@ class WeekSummaryViewController: UIViewController {
     private func setupSubscriptions() {
         weatherManager.$nextDaysData
             .sink { [nextDaysView] _ in nextDaysView.collectionView.reloadData() }
-            .store(in: &subscriptions)
-        weatherManager.$currentLocation
-            .sink { [weatherManager] _ in weatherManager.getData(dataSets: [.forecastNextHour, .forecastDaily]) }
             .store(in: &subscriptions)
         viewModel.$locationName
             .map { $0 == nil ? " " : $0 }
@@ -116,15 +113,12 @@ extension WeekSummaryViewController: UICollectionViewDelegate, UICollectionViewD
 }
 
 class WeekSummaryViewModel {
-    private var subscriptions: [AnyCancellable] = []
-    @Published var locationName: String?
+    @Published private(set) var locationName: String?
     var weatherManager: WeatherManager
     
     init(weatherManager: WeatherManager) {
         self.weatherManager = weatherManager
-        weatherManager.$currentLocation
-            .sink { [weak self] location in self?.nameForLocation(location: location) }
-            .store(in: &subscriptions)
+        nameForLocation(location: weatherManager.currentLocation)
     }
     
     var temperatureRange: ClosedRange<Float>? {
@@ -144,6 +138,7 @@ class WeekSummaryViewModel {
     
     private func nameForLocation(location: CLLocation?) {
         guard let location else {
+            locationName = nil
             return
         }
         CLGeocoder().reverseGeocodeLocation(location) { [weak self] placemarks, error in
