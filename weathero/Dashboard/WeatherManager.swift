@@ -9,11 +9,18 @@ import Foundation
 import Combine
 import CoreLocation
 
-class WeatherManager: ObservableObject {
+class WeatherManager {
     @Published private(set) var nextHourData: Result<[MinutePrecipitationData], Error>?
     @Published private(set) var nextDaysData: Result<[DailyForecast.DayWeatherCondition], Error>?
     
-    let currentLocation: CLLocation
+    @Published var currentLocation: CLLocation {
+        didSet {
+            nextHourData = nil
+            nextDaysData = nil
+            fetchingDataFuture?.cancel()
+            fetchingDataFuture = nil
+        }
+    }
     let forecastStart: Date?
     
     /// Initializes a weather manager instance

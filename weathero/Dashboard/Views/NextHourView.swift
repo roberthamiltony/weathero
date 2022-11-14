@@ -16,7 +16,13 @@ struct MinutePrecipitationData: Identifiable {
     var offset: Int
 }
 
-class NextHourView: UIView {
+class NextHourViewModel: ObservableObject {
+    @Published var nextHourData: Result<[MinutePrecipitationData], Error>?
+}
+
+class NextHourView: UICollectionViewCell {
+    let viewModel = NextHourViewModel()
+    
     let title: UILabel = {
         let title = UILabel()
         title.font = .systemFont(ofSize: 24.0, weight: .bold)
@@ -28,8 +34,8 @@ class NextHourView: UIView {
     
     let graphView: UIHostingController<NextHourGraph>
     
-    init(weatherManager: WeatherManager) {
-        graphView = UIHostingController(rootView: NextHourGraph(weatherManager: weatherManager))
+    init() {
+        graphView = UIHostingController(rootView: NextHourGraph(viewModel: viewModel))
         super.init(frame: .zero)
         graphView.sizingOptions =  [.intrinsicContentSize]
         setupViews()
@@ -59,17 +65,15 @@ class NextHourView: UIView {
 }
 
 struct NextHourGraph: View {
-    @ObservedObject var weatherManager: WeatherManager
+    @ObservedObject var viewModel: NextHourViewModel
     var body: some View {
         VStack {
-            switch weatherManager.nextHourData {
+            switch viewModel.nextHourData {
             case .success(let minutes):
                 GraphView(minutes: minutes)
             case .failure:
-                Button("Retry") { [weatherManager] in
-                    weatherManager.getData(dataSets: [.forecastNextHour])
-                }
-                .frame(height: 100)
+                Text("Failed to get hourly data")
+                    .frame(height: 100)
             case .none:
                 ProgressView()
                     .frame(height: 100)

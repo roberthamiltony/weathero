@@ -15,7 +15,7 @@ import CoreLocation
 
 class WeekSummaryViewController: UIViewController {
     private let titleView = WeeklySummaryTitleView()
-    private lazy var nextHourView: NextHourView = NextHourView(weatherManager: weatherManager)
+    private let nextHourView = NextHourView()
     private let nextDaysView: NextDaysView = NextDaysView()
     private let refreshControl = UIRefreshControl()
     
@@ -53,6 +53,9 @@ class WeekSummaryViewController: UIViewController {
     }
     
     private func setupSubscriptions() {
+        weatherManager.$nextHourData
+            .assign(to: \.nextHourData, on: nextHourView.viewModel)
+            .store(in: &subscriptions)
         weatherManager.$nextDaysData
             .sink { [nextDaysView] _ in
                 nextDaysView.collectionView.refreshControl?.endRefreshing()
@@ -125,11 +128,17 @@ extension WeekSummaryViewController: UICollectionViewDelegate, UICollectionViewD
 
 class WeekSummaryViewModel {
     @Published private(set) var locationName: String?
-    var weatherManager: WeatherManager
+    
+    private var managerSubscriptions: [AnyCancellable] = []
+    let weatherManager: WeatherManager
     
     init(weatherManager: WeatherManager) {
         self.weatherManager = weatherManager
-        nameForLocation(location: weatherManager.currentLocation)
+        weatherManager.$currentLocation
+            .sink { [weak self] location in
+                self?.nameForLocation(location: location)
+            }
+            .store(in: &managerSubscriptions)
     }
     
     var temperatureRange: ClosedRange<Float>? {
