@@ -13,27 +13,40 @@ import SnapKit
 import Combine
 import CoreLocation
 
+protocol WeekSummaryCoordinator: AnyObject {
+    func weekSummaryDidRequestNewLocation(_ viewController: WeekSummaryViewController)
+}
+
 class WeekSummaryViewController: UIViewController {
     private let titleView = WeeklySummaryTitleView()
     private let nextHourView = NextHourView()
     private let nextDaysView: NextDaysView = NextDaysView()
     private let refreshControl = UIRefreshControl()
+    private lazy var changeLocationButton: UIButton = {
+        let button = UIButton()
+        button.setImage(UIImage(systemName: "location.fill"), for: .normal)
+        button.tintColor = .label
+        button.backgroundColor = .secondarySystemBackground
+        button.addTarget(self, action: #selector(requestNewLocation), for: .touchUpInside)
+        return button
+    }()
     
     private var subscriptions: [AnyCancellable] = []
     let weatherManager: WeatherManager = WeatherManager(location: .init(latitude: 51.493169, longitude: -0.098912))
     private lazy var viewModel = WeekSummaryViewModel(weatherManager: weatherManager)
+    
+    weak var coordinator: WeekSummaryCoordinator?
     
     override func viewDidLoad() {
         setupViews()
         setupConstraints()
         setupCollectionView()
         setupSubscriptions()
-        weatherManager.getData(dataSets: [.forecastNextHour, .forecastDaily])
     }
     
     private func setupViews() {
         view.backgroundColor = .systemBackground
-        [titleView, nextHourView, nextDaysView].forEach { view.addSubview($0) }
+        [titleView, nextHourView, nextDaysView, changeLocationButton].forEach { view.addSubview($0) }
     }
     
     private func setupConstraints() {
@@ -50,6 +63,11 @@ class WeekSummaryViewController: UIViewController {
             make.left.right.equalToSuperview()
             make.bottom.lessThanOrEqualTo(view)
         }
+        changeLocationButton.snp.makeConstraints { make in
+            make.bottom.right.equalTo(view.safeAreaLayoutGuide).inset(16)
+            make.width.height.equalTo(40)
+        }
+        changeLocationButton.layer.cornerRadius = 20
     }
     
     private func setupSubscriptions() {
@@ -60,6 +78,11 @@ class WeekSummaryViewController: UIViewController {
             .sink { [nextDaysView] _ in
                 nextDaysView.collectionView.refreshControl?.endRefreshing()
                 nextDaysView.collectionView.reloadData()
+            }
+            .store(in: &subscriptions)
+        weatherManager.$currentLocation
+            .sink { [weatherManager] _ in
+                weatherManager.getData(dataSets: [.forecastNextHour, .forecastDaily])
             }
             .store(in: &subscriptions)
         viewModel.$locationName
@@ -81,6 +104,10 @@ class WeekSummaryViewController: UIViewController {
     @objc private func refreshWeatherData() {
         nextDaysView.collectionView.refreshControl?.beginRefreshing()
         weatherManager.getData(dataSets: [.forecastNextHour, .forecastDaily])
+    }
+    
+    @objc private func requestNewLocation() {
+        coordinator?.weekSummaryDidRequestNewLocation(self)
     }
 }
 

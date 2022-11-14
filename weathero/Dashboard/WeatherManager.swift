@@ -14,7 +14,7 @@ class WeatherManager {
     @Published private(set) var nextDaysData: Result<[DailyForecast.DayWeatherCondition], Error>?
     
     @Published var currentLocation: CLLocation {
-        didSet {
+        willSet {
             nextHourData = nil
             nextDaysData = nil
             fetchingDataFuture?.cancel()
