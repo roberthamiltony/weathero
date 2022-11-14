@@ -17,9 +17,10 @@ class WeekSummaryViewController: UIViewController {
     private let titleView = WeeklySummaryTitleView()
     private lazy var nextHourView: NextHourView = NextHourView(weatherManager: weatherManager)
     private let nextDaysView: NextDaysView = NextDaysView()
+    private let refreshControl = UIRefreshControl()
     
     private var subscriptions: [AnyCancellable] = []
-    var weatherManager = WeatherManager(location: .init(latitude: 51.493169, longitude: -0.098912))
+    let weatherManager: WeatherManager = WeatherManager(location: .init(latitude: 51.493169, longitude: -0.098912))
     private lazy var viewModel = WeekSummaryViewModel(weatherManager: weatherManager)
     
     override func viewDidLoad() {
@@ -53,7 +54,10 @@ class WeekSummaryViewController: UIViewController {
     
     private func setupSubscriptions() {
         weatherManager.$nextDaysData
-            .sink { [nextDaysView] _ in nextDaysView.collectionView.reloadData() }
+            .sink { [nextDaysView] _ in
+                nextDaysView.collectionView.refreshControl?.endRefreshing()
+                nextDaysView.collectionView.reloadData()
+            }
             .store(in: &subscriptions)
         viewModel.$locationName
             .map { $0 == nil ? " " : $0 }
@@ -67,6 +71,13 @@ class WeekSummaryViewController: UIViewController {
         nextDaysView.collectionView.register(DayWeatherLoadingCollectionViewCell.self, forCellWithReuseIdentifier: DayWeatherLoadingCollectionViewCell.identifier)
         nextDaysView.collectionView.dataSource = self
         nextDaysView.collectionView.delegate = self
+        nextDaysView.collectionView.refreshControl = refreshControl
+        refreshControl.addTarget(self, action: #selector(refreshWeatherData), for: .valueChanged)
+    }
+    
+    @objc private func refreshWeatherData() {
+        nextDaysView.collectionView.refreshControl?.beginRefreshing()
+        weatherManager.getData(dataSets: [.forecastNextHour, .forecastDaily])
     }
 }
 

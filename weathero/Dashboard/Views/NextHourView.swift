@@ -25,7 +25,9 @@ class NextHourView: UIView {
         title.textAlignment = .left
         return title
     }()
+    
     let graphView: UIHostingController<NextHourGraph>
+    
     init(weatherManager: WeatherManager) {
         graphView = UIHostingController(rootView: NextHourGraph(weatherManager: weatherManager))
         super.init(frame: .zero)
@@ -52,7 +54,6 @@ class NextHourView: UIView {
             make.top.equalTo(title.snp.bottom).offset(8)
             make.left.right.equalTo(safeAreaLayoutGuide)
             make.bottom.equalToSuperview()
-//            make.height.equalTo(200)
         }
     }
 }
