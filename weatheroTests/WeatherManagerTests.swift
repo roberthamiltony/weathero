@@ -123,6 +123,4 @@ class WeatherManagerTests: XCTestCase {
         XCTAssertNil(weatherManager.nextDaysData)
         XCTAssertNil(weatherManager.nextHourData)
     }
-    
-    func test
 }

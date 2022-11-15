@@ -30,6 +30,7 @@ class WeekSummaryViewController: UIViewController {
         button.tintColor = .label
         button.backgroundColor = .secondarySystemBackground
         button.addTarget(self, action: #selector(requestNewLocation), for: .touchUpInside)
+        button.accessibilityIdentifier = WeekSummaryIdentifiers.requestLocationButton.rawValue
         return button
     }()
     
@@ -135,7 +136,7 @@ extension WeekSummaryViewController: UICollectionViewDelegate, UICollectionViewD
         }
     }
     
-    private func dayWeatherCell(_ collectionView: UICollectionView, indexPath: IndexPath, days: [DailyForecast.DayWeatherCondition]) -> UICollectionViewCell {
+    private func dayWeatherCell(_ collectionView: UICollectionView, indexPath: IndexPath, days: [DayWeatherSummaryModel]) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: DayWeatherCollectionViewCell.identifier, for: indexPath)
         guard let day = days.safeGet(indexPath.row), let weatherCell = cell as? DayWeatherCollectionViewCell else { return cell }
         weatherCell.bind(day: day, temperatureRange: viewModel.daysTemperatureRange)

@@ -15,7 +15,7 @@ class WeekSummaryViewModel {
     @Published private(set) var nextHourData: Result<[MinutePrecipitationData], Error>?
     
     /// The results from fetching the next days data. Nil corresponds to no data or fetching data. Use `getData` with `.forecastDaily` to request this field.
-    @Published private(set) var nextDaysData: Result<[DailyForecast.DayWeatherCondition], Error>? {
+    @Published private(set) var nextDaysData: Result<[DayWeatherSummaryModel], Error>? {
         didSet {
             switch nextDaysData {
             case .success(let days):
@@ -104,7 +104,7 @@ class WeekSummaryViewModel {
                 }
                 if dataSets.contains(.forecastDaily) {
                    if let nextDaysResponse = weatherResponse.forecastDaily {
-                       self.nextDaysData = .success(nextDaysResponse.days)
+                       self.nextDaysData = .success(self.daysDataReducer(daysData: nextDaysResponse.days))
                    } else {
                        self.nextDaysData = .failure(WeatherManagerError.dataNotFound)
                    }
@@ -119,17 +119,30 @@ class WeekSummaryViewModel {
             .map { MinutePrecipitationData(precipitation: $0.element.precipitationIntensity, offset: $0.offset) }
     }
     
+    private func daysDataReducer(daysData: [DailyForecast.DayWeatherCondition]) -> [DayWeatherSummaryModel] {
+        daysData
+            .sorted { $0.forecastStart < $1.forecastStart}
+            .map {
+                DayWeatherSummaryModel(
+                    precipitationType: $0.precipitationType,
+                    minTemperature: $0.temperatureMin,
+                    maxTemperature: $0.temperatureMax,
+                    forecastStart: $0.forecastStart
+                )
+            }
+    }
+    
     enum WeatherManagerError: Error {
         case dataNotFound
     }
 }
 
-private extension [DailyForecast.DayWeatherCondition] {
+private extension [DayWeatherSummaryModel] {
     /// Returns the range of temperature values provided by the day models.
     var temperatureRange: ClosedRange<Float>? {
         guard
-            let minimum = self.min(by: {$0.temperatureMin < $1.temperatureMin})?.temperatureMin,
-            let maximum = self.max(by: {$0.temperatureMax < $1.temperatureMax})?.temperatureMax,
+            let minimum = self.min(by: {$0.minTemperature < $1.minTemperature})?.minTemperature,
+            let maximum = self.max(by: {$0.maxTemperature < $1.maxTemperature})?.maxTemperature,
             maximum > minimum
         else {
             return nil

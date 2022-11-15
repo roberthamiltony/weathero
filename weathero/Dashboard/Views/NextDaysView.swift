@@ -9,6 +9,13 @@ import Foundation
 import SwiftUI
 import UIKit
 
+struct DayWeatherSummaryModel {
+    var precipitationType: PrecipitationType
+    var minTemperature: Float
+    var maxTemperature: Float
+    var forecastStart: Date
+}
+
 class NextDaysView: UIView {
     let collectionView: UICollectionView = {
         let layout = DynamicHeightFlowLayout()
@@ -91,23 +98,15 @@ class DayWeatherCollectionViewCell: UICollectionViewCell {
         }
     }
     
-    func bind(day: DailyForecast.DayWeatherCondition, temperatureRange: ClosedRange<Float>?) {
+    func bind(day: DayWeatherSummaryModel, temperatureRange: ClosedRange<Float>?) {
         var image: UIImage?
         switch day.precipitationType {
         case .rain, .precipitation:
-            if WeatherClassifications.lightRainRange.contains(day.precipitationAmount) {
-                image = UIImage(systemName: "cloud.rain")
-            } else {
-                image = UIImage(systemName: "cloud.heavyrain")
-            }
+            image = UIImage(systemName: "cloud.rain")
         case .clear:
             image = UIImage(systemName: "sun.max")
         case .snow:
-            if WeatherClassifications.lightRainRange.contains(day.precipitationAmount) {
-                image = UIImage(systemName: "snowflake")
-            } else {
-                image = UIImage(systemName: "cloud.snow")
-            }
+            image = UIImage(systemName: "cloud.snow")
         case .sleet:
             image = UIImage(systemName: "cloud.sleet")
         case .hail:
@@ -123,7 +122,7 @@ class DayWeatherCollectionViewCell: UICollectionViewCell {
         dateLabel.text = dayInWeek
         
         if let range = temperatureRange {
-            temperatureRangeView.bind(range: range, min: day.temperatureMin, max: day.temperatureMax)
+            temperatureRangeView.bind(range: range, min: day.minTemperature, max: day.maxTemperature)
             temperatureRangeView.isHidden = false
         } else {
             temperatureRangeView.isHidden = true
