@@ -9,11 +9,11 @@ import Foundation
 import CoreLocation
 
 class LocationCoordinator: NavigationCoordinator {
-    var weatherManager: WeatherManager?
+    var viewModel: WeekSummaryViewModel?
     
     override func start() {
         let locationPicker = LocationPickerViewController()
-        locationPicker.proposedLocation = weatherManager?.currentLocation
+        locationPicker.proposedLocation = viewModel?.currentLocation
         locationPicker.coordinator = self
         navigationController.pushViewController(locationPicker, animated: true)
     }
@@ -21,7 +21,7 @@ class LocationCoordinator: NavigationCoordinator {
 
 extension LocationCoordinator: LocationPickerCoordinator {
     func picker(_ viewController: LocationPickerViewController, picked: CLLocation) {
-        weatherManager?.currentLocation = picked
+        viewModel?.currentLocation = picked
         finish(animated: true)
     }
 }

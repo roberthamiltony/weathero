@@ -12,7 +12,7 @@ import CoreLocation
 
 class WeatherManagerTests: XCTestCase {
     func testWeatherManagerPublishesNextHourResult() {
-        let weatherManager = WeatherManager(location: .init(latitude: 51.493169, longitude: -0.098912))
+        let weatherManager = WeekSummaryViewModel(location: .init(latitude: 51.493169, longitude: -0.098912))
         weatherManager.apiClient = MockWeatherAPIClient()
         var cancellable: AnyCancellable
         let expectation = XCTestExpectation()
@@ -31,7 +31,7 @@ class WeatherManagerTests: XCTestCase {
     }
     
     func testWeatherManagerPublishesNextDaysResult() {
-        let weatherManager = WeatherManager(location: .init(latitude: 51.493169, longitude: -0.098912))
+        let weatherManager = WeekSummaryViewModel(location: .init(latitude: 51.493169, longitude: -0.098912))
         weatherManager.apiClient = MockWeatherAPIClient()
         var cancellable: AnyCancellable
         let expectation = XCTestExpectation()
@@ -50,7 +50,7 @@ class WeatherManagerTests: XCTestCase {
     }
     
     func testWeatherManagerPublishesErrorIfDailyForcastIsMissing() {
-        let weatherManager = WeatherManager(location: .init(latitude: 51.493169, longitude: -0.098912))
+        let weatherManager = WeekSummaryViewModel(location: .init(latitude: 51.493169, longitude: -0.098912))
         let mockClient = MockWeatherAPIClient()
         mockClient.forceExcludeDailyForecastData = true
         weatherManager.apiClient = mockClient
@@ -71,7 +71,7 @@ class WeatherManagerTests: XCTestCase {
     }
     
     func testWeatherManagerPublishesErrorIfNextHourIsMissing() {
-        let weatherManager = WeatherManager(location: .init(latitude: 51.493169, longitude: -0.098912))
+        let weatherManager = WeekSummaryViewModel(location: .init(latitude: 51.493169, longitude: -0.098912))
         let mockClient = MockWeatherAPIClient()
         mockClient.forceExcludeNextHourData = true
         weatherManager.apiClient = mockClient
@@ -92,7 +92,7 @@ class WeatherManagerTests: XCTestCase {
     }
     
     func testChangingLocationClearsData() {
-        let weatherManager = WeatherManager(location: .init(latitude: 51.493169, longitude: -0.098912))
+        let weatherManager = WeekSummaryViewModel(location: .init(latitude: 51.493169, longitude: -0.098912))
         let mockClient = MockWeatherAPIClient()
         weatherManager.apiClient = mockClient
         let hourExpectation = XCTestExpectation()
@@ -123,4 +123,6 @@ class WeatherManagerTests: XCTestCase {
         XCTAssertNil(weatherManager.nextDaysData)
         XCTAssertNil(weatherManager.nextHourData)
     }
+    
+    func test
 }

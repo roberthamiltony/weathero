@@ -25,7 +25,7 @@ class AppCoordinator: NavigationCoordinator {
 extension AppCoordinator: WeekSummaryCoordinator {
     func weekSummaryDidRequestNewLocation(_ viewController: WeekSummaryViewController) {
         let locationCoordinator = LocationCoordinator(navigationController: UINavigationController())
-        locationCoordinator.weatherManager = viewController.weatherManager
+        locationCoordinator.viewModel = viewController.viewModel
         addChild(locationCoordinator)
         locationCoordinator.start()
         coordinatingViewController.present(locationCoordinator.coordinatingViewController, animated: true)

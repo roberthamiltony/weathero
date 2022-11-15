@@ -14,6 +14,8 @@ import Combine
 import CoreLocation
 
 protocol WeekSummaryCoordinator: AnyObject {
+    
+    /// Called by the summary view when a new location is requested
     func weekSummaryDidRequestNewLocation(_ viewController: WeekSummaryViewController)
 }
 
@@ -32,13 +34,11 @@ class WeekSummaryViewController: UIViewController {
     }()
     
     private var subscriptions: [AnyCancellable] = []
-    let weatherManager: WeatherManager = WeatherManager(location: .init(latitude: 51.493169, longitude: -0.098912))
-    private let viewModel = WeekSummaryViewModel()
+    let viewModel: WeekSummaryViewModel = WeekSummaryViewModel(location: .init(latitude: 51.493169, longitude: -0.098912))
     
     weak var coordinator: WeekSummaryCoordinator?
     
     override func viewDidLoad() {
-        viewModel.weatherManager = weatherManager
         setupViews()
         setupConstraints()
         setupCollectionView()
@@ -72,21 +72,21 @@ class WeekSummaryViewController: UIViewController {
     }
     
     private func setupSubscriptions() {
-        weatherManager.$nextHourData
+        viewModel.$nextHourData
             .assign(to: \.nextHourData, on: nextHourView.viewModel)
             .store(in: &subscriptions)
-        weatherManager.$nextDaysData
+        viewModel.$nextDaysData
             .sink { [nextDaysView] _ in
                 nextDaysView.collectionView.refreshControl?.endRefreshing()
                 nextDaysView.collectionView.reloadData()
             }
             .store(in: &subscriptions)
-        weatherManager.$currentLocation
-            .sink { [weatherManager] _ in
-                weatherManager.getData(dataSets: [.forecastNextHour, .forecastDaily])
+        viewModel.$currentLocation
+            .sink { [viewModel] _ in
+                viewModel.getData(dataSets: [.forecastNextHour, .forecastDaily])
             }
             .store(in: &subscriptions)
-        viewModel.$locationName
+        viewModel.$currentLocationName
             .map { $0 == nil ? " " : $0 }
             .assign(to: \.title, on: titleView)
             .store(in: &subscriptions)
@@ -104,7 +104,7 @@ class WeekSummaryViewController: UIViewController {
     
     @objc private func refreshWeatherData() {
         nextDaysView.collectionView.refreshControl?.beginRefreshing()
-        weatherManager.getData(dataSets: [.forecastNextHour, .forecastDaily])
+        viewModel.getData(dataSets: [.forecastNextHour, .forecastDaily])
     }
     
     @objc private func requestNewLocation() {
@@ -114,7 +114,7 @@ class WeekSummaryViewController: UIViewController {
 
 extension WeekSummaryViewController: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        switch weatherManager.nextDaysData {
+        switch viewModel.nextDaysData {
         case .success(let days):
             return days.count
         case .failure:
@@ -125,7 +125,7 @@ extension WeekSummaryViewController: UICollectionViewDelegate, UICollectionViewD
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        switch weatherManager.nextDaysData {
+        switch viewModel.nextDaysData {
         case .none:
             return dayWeatherLoadingCell(collectionView, indexPath: indexPath)
         case .success(let days):
@@ -138,7 +138,7 @@ extension WeekSummaryViewController: UICollectionViewDelegate, UICollectionViewD
     private func dayWeatherCell(_ collectionView: UICollectionView, indexPath: IndexPath, days: [DailyForecast.DayWeatherCondition]) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: DayWeatherCollectionViewCell.identifier, for: indexPath)
         guard let day = days.safeGet(indexPath.row), let weatherCell = cell as? DayWeatherCollectionViewCell else { return cell }
-        weatherCell.bind(day: day, temperatureRange: viewModel.temperatureRange)
+        weatherCell.bind(day: day, temperatureRange: viewModel.daysTemperatureRange)
         return weatherCell
     }
     
@@ -151,50 +151,5 @@ extension WeekSummaryViewController: UICollectionViewDelegate, UICollectionViewD
         guard let loadingCell = cell as? DayWeatherLoadingCollectionViewCell else { return cell }
         loadingCell.activityInditcator.startAnimating()
         return loadingCell
-    }
-}
-
-class WeekSummaryViewModel {
-    @Published private(set) var locationName: String?
-    
-    private var managerSubscriptions: [AnyCancellable] = []
-    var weatherManager: WeatherManager? {
-        didSet {
-            managerSubscriptions.cancelAndRemoveAll()
-            weatherManager?.$currentLocation
-                .sink { [weak self] location in
-                    self?.nameForLocation(location: location)
-                }
-                .store(in: &managerSubscriptions)
-        }
-    }
-    
-    var temperatureRange: ClosedRange<Float>? {
-        switch weatherManager?.nextDaysData {
-        case .success(let days):
-            guard
-                let minimum = days.min(by: {$0.temperatureMin < $1.temperatureMin})?.temperatureMin,
-                let maximum = days.max(by: {$0.temperatureMax < $1.temperatureMax})?.temperatureMax
-            else {
-                return nil
-            }
-            return (minimum...maximum)
-        default:
-            return nil
-        }
-    }
-    
-    private func nameForLocation(location: CLLocation?) {
-        guard let location else {
-            locationName = nil
-            return
-        }
-        CLGeocoder().reverseGeocodeLocation(location) { [weak self] placemarks, error in
-            guard let placemark = placemarks?.first else {
-                self?.locationName = "\(location.coordinate.latitude), \(location.coordinate.longitude)"
-                return
-            }
-            self?.locationName = placemark.name ?? "\(location.coordinate.latitude), \(location.coordinate.longitude)"
-        }
     }
 }

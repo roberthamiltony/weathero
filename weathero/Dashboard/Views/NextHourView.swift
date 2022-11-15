@@ -10,8 +10,7 @@ import UIKit
 import SwiftUI
 import Charts
 
-struct MinutePrecipitationData: Identifiable {
-    var id: Int { offset }
+struct MinutePrecipitationData {
     var precipitation: Float
     var offset: Int
 }
@@ -98,7 +97,7 @@ struct NextHourGraph: View {
                     endPoint: .bottom
                 )
                 Chart {
-                    ForEach(minutes) { minute in
+                    ForEach(minutes, id: \.offset) { minute in
                         LineMark(x: .value("Minute", minute.offset), y: .value("Precipitation", minute.precipitation))
                             .interpolationMethod(.catmullRom)
                             .foregroundStyle(lineColour)

@@ -9,20 +9,39 @@ import Foundation
 import Combine
 import CoreLocation
 
-class WeatherManager {
-    @Published private(set) var nextHourData: Result<[MinutePrecipitationData], Error>?
-    @Published private(set) var nextDaysData: Result<[DailyForecast.DayWeatherCondition], Error>?
+class WeekSummaryViewModel {
     
-    @Published var currentLocation: CLLocation {
-        willSet {
-            nextHourData = nil
-            nextDaysData = nil
-            fetchingDataFuture?.cancel()
-            fetchingDataFuture = nil
+    /// The results from fetching the next hour data. Nil corresponds to no data or fetching data. Use `getData` with `.forecastNextHour` to request this field.
+    @Published private(set) var nextHourData: Result<[MinutePrecipitationData], Error>?
+    
+    /// The results from fetching the next days data. Nil corresponds to no data or fetching data. Use `getData` with `.forecastDaily` to request this field.
+    @Published private(set) var nextDaysData: Result<[DailyForecast.DayWeatherCondition], Error>? {
+        didSet {
+            switch nextDaysData {
+            case .success(let days):
+                daysTemperatureRange = days.temperatureRange
+            default:
+                daysTemperatureRange = nil
+            }
         }
     }
+    
+    /// A range encompassing all temperature values from the days data
+    private(set) var daysTemperatureRange: ClosedRange<Float>?
+    
+    /// The location this view model is contextual for. Updating this value will invalidate any modles and requests.
+    @Published var currentLocation: CLLocation {
+        willSet { invalidateLocation() }
+        didSet { bindLocation() }
+    }
+    
+    /// A readable string for the location.
+    @Published private(set) var currentLocationName: String?
+    
+    /// The date this view model will fetch forecasts from.
     let forecastStart: Date?
     
+    /// The API client the view model will use to fetch weather models.
     var apiClient: APIClient = WeatherAPIClient()
     
     /// Initializes a weather manager instance
@@ -32,9 +51,22 @@ class WeatherManager {
     init(location: CLLocation, forecastStart: Date? = nil) {
         self.currentLocation = location
         self.forecastStart = forecastStart
+        bindLocation()
+    }
+    
+    private func bindLocation() {
+        LocationHelpers.calculateLocationName(location: currentLocation) { [weak self] in self?.currentLocationName = $0 }
+    }
+    
+    private func invalidateLocation() {
+        nextHourData = nil
+        nextDaysData = nil
+        fetchingDataFuture?.cancel()
+        fetchingDataFuture = nil
     }
     
     private var fetchingDataFuture: AnyCancellable?
+    /// Fetches weather models for the given data sets. Results are published through `nextDaysData` and `nextHourData`
     func getData(dataSets: [WeatherRequest.DataSet]) {
         guard fetchingDataFuture == nil else { return }
         let request = WeatherRequest(
@@ -89,5 +121,19 @@ class WeatherManager {
     
     enum WeatherManagerError: Error {
         case dataNotFound
+    }
+}
+
+private extension [DailyForecast.DayWeatherCondition] {
+    /// Returns the range of temperature values provided by the day models.
+    var temperatureRange: ClosedRange<Float>? {
+        guard
+            let minimum = self.min(by: {$0.temperatureMin < $1.temperatureMin})?.temperatureMin,
+            let maximum = self.max(by: {$0.temperatureMax < $1.temperatureMax})?.temperatureMax,
+            maximum > minimum
+        else {
+            return nil
+        }
+        return (minimum...maximum)
     }
 }
