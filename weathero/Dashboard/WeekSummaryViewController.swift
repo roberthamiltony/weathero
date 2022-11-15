@@ -62,8 +62,7 @@ class WeekSummaryViewController: UIViewController {
         }
         nextDaysView.snp.makeConstraints { make in
             make.top.equalTo(nextHourView.snp.bottom).offset(8)
-            make.left.right.equalToSuperview()
-            make.bottom.lessThanOrEqualTo(view)
+            make.left.right.bottom.equalToSuperview()
         }
         changeLocationButton.snp.makeConstraints { make in
             make.bottom.right.equalTo(view.safeAreaLayoutGuide).inset(16)

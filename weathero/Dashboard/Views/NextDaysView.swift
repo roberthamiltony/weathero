@@ -20,7 +20,7 @@ class NextDaysView: UIView {
     let collectionView: UICollectionView = {
         let layout = DynamicHeightFlowLayout()
         layout.estimatedItemSize = UICollectionViewFlowLayout.automaticSize
-        let collectionView = IntrinsicResizingCollectionView(frame: .zero, collectionViewLayout: layout)
+        let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
         return collectionView
     }()
     

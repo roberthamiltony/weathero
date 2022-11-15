@@ -8,18 +8,7 @@
 import Foundation
 import UIKit
 
-/// A collection view with an intrinsic size matching the content size
-class IntrinsicResizingCollectionView: UICollectionView {
-    override func layoutSubviews() {
-        super.layoutSubviews()
-        if bounds.size != intrinsicContentSize {
-            invalidateIntrinsicContentSize()
-        }
-    }
-    
-    override var intrinsicContentSize: CGSize { contentSize }
-}
-
+/// A flow layout to layout cells with dynamic height but filling the width, accounting for insets.
 class DynamicHeightFlowLayout: UICollectionViewFlowLayout {
 
     override func layoutAttributesForElements(in rect: CGRect) -> [UICollectionViewLayoutAttributes]? {
