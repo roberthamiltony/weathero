@@ -94,6 +94,7 @@
 		546EAC52292393E30011833F /* XCUIElement.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XCUIElement.swift; sourceTree = "<group>"; };
 		546EAC54292394480011833F /* LocationIdentifiers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationIdentifiers.swift; sourceTree = "<group>"; };
 		546EAC572923971A0011833F /* DayWeatherSummaryModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DayWeatherSummaryModelTests.swift; sourceTree = "<group>"; };
+		546EAC5929239A6C0011833F /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		546F049D2916928A0006A846 /* weathero.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = weathero.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		546F04A02916928A0006A846 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		546F04A22916928A0006A846 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -236,6 +237,7 @@
 		546F04942916928A0006A846 = {
 			isa = PBXGroup;
 			children = (
+				546EAC5929239A6C0011833F /* README.md */,
 				546F049F2916928A0006A846 /* weathero */,
 				546F04B62916928D0006A846 /* weatheroTests */,
 				546F04C02916928D0006A846 /* weatheroUITests */,
