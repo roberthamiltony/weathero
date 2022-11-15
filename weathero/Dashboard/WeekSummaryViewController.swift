@@ -81,11 +81,6 @@ class WeekSummaryViewController: UIViewController {
                 nextDaysView.collectionView.reloadData()
             }
             .store(in: &subscriptions)
-        viewModel.$currentLocation
-            .sink { [viewModel] _ in
-                viewModel.getData(dataSets: [.forecastNextHour, .forecastDaily])
-            }
-            .store(in: &subscriptions)
         viewModel.$currentLocationName
             .map { $0 == nil ? " " : $0 }
             .assign(to: \.title, on: titleView)

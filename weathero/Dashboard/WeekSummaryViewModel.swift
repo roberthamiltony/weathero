@@ -30,7 +30,7 @@ class WeekSummaryViewModel {
     private(set) var daysTemperatureRange: ClosedRange<Float>?
     
     /// The location this view model is contextual for. Updating this value will invalidate any modles and requests.
-    @Published var currentLocation: CLLocation {
+    var currentLocation: CLLocation {
         willSet { invalidateLocation() }
         didSet { bindLocation() }
     }
@@ -56,6 +56,7 @@ class WeekSummaryViewModel {
     
     private func bindLocation() {
         LocationHelpers.calculateLocationName(location: currentLocation) { [weak self] in self?.currentLocationName = $0 }
+        getData(dataSets: [.forecastDaily, .forecastNextHour])
     }
     
     private func invalidateLocation() {
