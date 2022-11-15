@@ -10,13 +10,13 @@ import Combine
 import CoreLocation
 @testable import weathero
 
-class WeatherManagerTests: XCTestCase {
+class WeekSummaryViewModelTests: XCTestCase {
     func testWeatherManagerPublishesNextHourResult() {
-        let weatherManager = WeekSummaryViewModel(location: .init(latitude: 51.493169, longitude: -0.098912))
-        weatherManager.apiClient = MockWeatherAPIClient()
+        let viewModel = WeekSummaryViewModel(location: .init(latitude: 51.493169, longitude: -0.098912))
+        viewModel.apiClient = MockWeatherAPIClient()
         var cancellable: AnyCancellable
         let expectation = XCTestExpectation()
-        cancellable = weatherManager.$nextHourData
+        cancellable = viewModel.$nextHourData
             .sink(receiveValue: { result in
                 switch result {
                 case .success:
@@ -25,17 +25,17 @@ class WeatherManagerTests: XCTestCase {
                     break
                 }
             })
-        weatherManager.getData(dataSets: [.forecastNextHour])
+        viewModel.getData(dataSets: [.forecastNextHour])
         wait(for: [expectation], timeout: 0.5)
         cancellable.cancel()
     }
     
     func testWeatherManagerPublishesNextDaysResult() {
-        let weatherManager = WeekSummaryViewModel(location: .init(latitude: 51.493169, longitude: -0.098912))
-        weatherManager.apiClient = MockWeatherAPIClient()
+        let viewModel = WeekSummaryViewModel(location: .init(latitude: 51.493169, longitude: -0.098912))
+        viewModel.apiClient = MockWeatherAPIClient()
         var cancellable: AnyCancellable
         let expectation = XCTestExpectation()
-        cancellable = weatherManager.$nextDaysData
+        cancellable = viewModel.$nextDaysData
             .sink(receiveValue: { result in
                 switch result {
                 case .success:
@@ -44,19 +44,19 @@ class WeatherManagerTests: XCTestCase {
                     break
                 }
             })
-        weatherManager.getData(dataSets: [.forecastDaily])
+        viewModel.getData(dataSets: [.forecastDaily])
         wait(for: [expectation], timeout: 0.5)
         cancellable.cancel()
     }
     
     func testWeatherManagerPublishesErrorIfDailyForcastIsMissing() {
-        let weatherManager = WeekSummaryViewModel(location: .init(latitude: 51.493169, longitude: -0.098912))
+        let viewModel = WeekSummaryViewModel(location: .init(latitude: 51.493169, longitude: -0.098912))
         let mockClient = MockWeatherAPIClient()
         mockClient.forceExcludeDailyForecastData = true
-        weatherManager.apiClient = mockClient
+        viewModel.apiClient = mockClient
         var cancellable: AnyCancellable
         let expectation = XCTestExpectation()
-        cancellable = weatherManager.$nextDaysData
+        cancellable = viewModel.$nextDaysData
             .sink(receiveValue: { result in
                 switch result {
                 case .failure:
@@ -65,19 +65,19 @@ class WeatherManagerTests: XCTestCase {
                     break
                 }
             })
-        weatherManager.getData(dataSets: [.forecastDaily])
+        viewModel.getData(dataSets: [.forecastDaily])
         wait(for: [expectation], timeout: 0.5)
         cancellable.cancel()
     }
     
     func testWeatherManagerPublishesErrorIfNextHourIsMissing() {
-        let weatherManager = WeekSummaryViewModel(location: .init(latitude: 51.493169, longitude: -0.098912))
+        let viewModel = WeekSummaryViewModel(location: .init(latitude: 51.493169, longitude: -0.098912))
         let mockClient = MockWeatherAPIClient()
         mockClient.forceExcludeNextHourData = true
-        weatherManager.apiClient = mockClient
+        viewModel.apiClient = mockClient
         var cancellable: AnyCancellable
         let expectation = XCTestExpectation()
-        cancellable = weatherManager.$nextHourData
+        cancellable = viewModel.$nextHourData
             .sink(receiveValue: { result in
                 switch result {
                 case .failure:
@@ -86,18 +86,18 @@ class WeatherManagerTests: XCTestCase {
                     break
                 }
             })
-        weatherManager.getData(dataSets: [.forecastNextHour])
+        viewModel.getData(dataSets: [.forecastNextHour])
         wait(for: [expectation], timeout: 0.5)
         cancellable.cancel()
     }
     
     func testChangingLocationClearsData() {
-        let weatherManager = WeekSummaryViewModel(location: .init(latitude: 51.493169, longitude: -0.098912))
+        let viewModel = WeekSummaryViewModel(location: .init(latitude: 51.493169, longitude: -0.098912))
         let mockClient = MockWeatherAPIClient()
-        weatherManager.apiClient = mockClient
+        viewModel.apiClient = mockClient
         let hourExpectation = XCTestExpectation()
         let dailyExpectation = XCTestExpectation()
-        let hourlyCancellable = weatherManager.$nextHourData
+        let hourlyCancellable = viewModel.$nextHourData
             .sink(receiveValue: { result in
                 switch result {
                 case .success:
@@ -106,7 +106,7 @@ class WeatherManagerTests: XCTestCase {
                     break
                 }
             })
-        let dailyCancellable = weatherManager.$nextDaysData
+        let dailyCancellable = viewModel.$nextDaysData
             .sink(receiveValue: { result in
                 switch result {
                 case .success:
@@ -115,12 +115,12 @@ class WeatherManagerTests: XCTestCase {
                     break
                 }
             })
-        weatherManager.getData(dataSets: [.forecastNextHour, .forecastDaily])
+        viewModel.getData(dataSets: [.forecastNextHour, .forecastDaily])
         wait(for: [hourExpectation, dailyExpectation], timeout: 0.5)
         hourlyCancellable.cancel()
         dailyCancellable.cancel()
-        weatherManager.currentLocation = CLLocation(latitude: 1.0, longitude: 1.0)
-        XCTAssertNil(weatherManager.nextDaysData)
-        XCTAssertNil(weatherManager.nextHourData)
+        viewModel.currentLocation = CLLocation(latitude: 1.0, longitude: 1.0)
+        XCTAssertNil(viewModel.nextDaysData)
+        XCTAssertNil(viewModel.nextHourData)
     }
 }

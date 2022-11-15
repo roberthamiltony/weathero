@@ -137,7 +137,7 @@ class WeekSummaryViewModel {
     }
 }
 
-private extension [DayWeatherSummaryModel] {
+extension [DayWeatherSummaryModel] {
     /// Returns the range of temperature values provided by the day models.
     var temperatureRange: ClosedRange<Float>? {
         guard

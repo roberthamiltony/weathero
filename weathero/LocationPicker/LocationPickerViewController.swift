@@ -59,9 +59,8 @@ class LocationPickerViewController: UIViewController {
         map.removeAnnotations(map.annotations)
         if let proposedLocation {
             map.centerCoordinate = proposedLocation.coordinate
-            let annotation = AccessibleMKPointAnnotation()
+            let annotation = MKPointAnnotation()
             annotation.coordinate = proposedLocation.coordinate
-            annotation.accessibilityIdentifier = LocationIdentifiers.marker.rawValue
             map.addAnnotation(annotation)
             UIView.animate(withDuration: 0.25) { [confirmButton] in
                 confirmButton.isHidden = false
@@ -85,8 +84,4 @@ class LocationPickerViewController: UIViewController {
             coordinator?.picker(self, picked: proposedLocation)
         }
     }
-}
-
-class AccessibleMKPointAnnotation: MKPointAnnotation, UIAccessibilityIdentification {
-    var accessibilityIdentifier: String?
 }
