@@ -14,3 +14,4 @@ The app uses the WeatherClassifications to guide UI - these are just the authors
 
 ## WeatherKit Token
 To get a WeatherKit token, generate one using this guide: https://developer.apple.com/documentation/weatherkitrestapi/request_authentication_for_weatherkit_rest_api
+Alternatively, email me and I will share mine 
