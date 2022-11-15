@@ -141,14 +141,44 @@ class TemperatureRangeView: UIView {
         view.clipsToBounds = true
         return view
     }()
-    let rangeBubble: UIView = UIView()
+    let rangeBubbleContainer = UIView()
+    let rangeBubble = UIView()
+    let minTemperatureLabel: UILabel = {
+        let label = UILabel()
+        label.font = .systemFont(ofSize: 14.0)
+        label.textColor = .label
+        return label
+    }()
+    let maxTemperatureLabel: UILabel = {
+        let label = UILabel()
+        label.font = .systemFont(ofSize: 14.0)
+        label.textColor = .label
+        return label
+    }()
     
     override init(frame: CGRect) {
         super.init(frame: frame)
+        setupViews()
+        backgroundGradient.mask = rangeBubbleContainer
+        rangeBubble.backgroundColor = .white
+    }
+    
+    private func setupViews() {
         addSubview(backgroundGradient)
         backgroundGradient.snp.makeConstraints { $0.edges.equalToSuperview() }
-        backgroundGradient.mask = rangeBubble
-        rangeBubble.backgroundColor = .white
+        [minTemperatureLabel, maxTemperatureLabel, rangeBubble].forEach { rangeBubbleContainer.addSubview($0) }
+        minTemperatureLabel.snp.makeConstraints { make in
+            make.centerY.left.equalToSuperview()
+        }
+        maxTemperatureLabel.snp.makeConstraints { make in
+            make.centerY.right.equalToSuperview()
+        }
+        rangeBubble.snp.makeConstraints { make in
+            make.centerY.equalToSuperview()
+            make.top.bottom.equalToSuperview()
+            make.left.equalTo(minTemperatureLabel.snp.right).offset(4)
+            make.right.equalTo(maxTemperatureLabel.snp.left).offset(-4)
+        }
     }
     
     required init?(coder: NSCoder) {
@@ -161,12 +191,27 @@ class TemperatureRangeView: UIView {
     }
     
     func bind(range: ClosedRange<Float>, min: Float, max: Float) {
+        // set labels, providing content size
+        minTemperatureLabel.text = "\(Int(min.rounded()))"
+        maxTemperatureLabel.text = "\(Int(max.rounded()))"
         layoutIfNeeded()
+        
+        // Calculate where the bubble should go and how wide it should be
         let width = frame.width
         let rangeWidth = range.upperBound - range.lowerBound
         let minimumOffset = CGFloat((min - range.lowerBound) / rangeWidth) * width
         let maximumOffset = CGFloat((max - range.lowerBound) / rangeWidth) * width
-        rangeBubble.frame = CGRect(x: minimumOffset, y: 0, width: maximumOffset - minimumOffset, height: frame.height)
+        let proposedWidth = maximumOffset - minimumOffset
+        
+        // At minimum, the bubble needs to show the two labels and spacing
+        let minimumWidth = (minTemperatureLabel.intrinsicContentSize.width + maxTemperatureLabel.intrinsicContentSize.width + 8)
+        let difference = Swift.max(0, minimumWidth - proposedWidth)
+        let adjustedWidth = Swift.max(minimumWidth, proposedWidth)
+        rangeBubbleContainer.frame = CGRect(x: minimumOffset - (difference/2), y: 0, width: adjustedWidth, height: frame.height)
+        rangeBubbleContainer.setNeedsLayout()
+        rangeBubbleContainer.layoutIfNeeded()
+        
+        // Set the gradient location using the absolute hot and cold classifications
         backgroundGradient.gradient.colors = [coldColour.cgColor, UIColor.white.cgColor, hotColour.cgColor]
         let coldLocation = (Float(WeatherClassifications.cold) - range.lowerBound) / rangeWidth
         let hotLocation = (Float(WeatherClassifications.hot) - range.lowerBound) / rangeWidth
